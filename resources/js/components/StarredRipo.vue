@@ -34,6 +34,7 @@
         }).catch(error => {
           console.log(error.response);
           this.$bvToast.show('bad-token-toast');
+          setTimeout( () => this.$router.go(), 5000);
         });
       }
     }
