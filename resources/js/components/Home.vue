@@ -50,7 +50,9 @@ export default {
           this.form.git_hub_token = response.data;
           this.tokenSaved = true;
         }
-      }).catch(error => console.log(error));
+      }).catch(error => {
+        console.log(error)
+      });
     },
     onSubmit(event) {
       event.preventDefault()
@@ -58,7 +60,9 @@ export default {
         this.form.git_hub_token = response.data;
         this.showDocLink = false;
         this.tokenSaved = true;
-      }).catch(error => console.log(error));
+      }).catch(error => {
+        console.log(error)
+      });
     }
   }
 }
