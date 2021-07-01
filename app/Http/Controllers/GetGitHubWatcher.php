@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use GrahamCampbell\GitHub\Facades\GitHub;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
