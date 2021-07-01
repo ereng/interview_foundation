@@ -7,7 +7,8 @@
     <b-button
       v-if="!gottenStaredRipos"
       v-on:click="getStaredRipos"
-      :variant="gettingYourData ? 'gray' : 'primary'"
+      :disabled='fetchRipoBtnIsDisabled'
+      :variant="gettingYourData ? '' : 'primary'"
     >
       {{ gettingYourData ? 'Getting your data ...' : 'Get your stared repos' }}
     </b-button>
@@ -19,6 +20,7 @@
       return {
         gettingYourData: false,
         gottenStaredRipos: false,
+        fetchRipoBtnIsDisabled: false,
         fields: ['full_name'],
         staredRipos: []
       }
@@ -26,6 +28,7 @@
     methods: {
       getStaredRipos () {
         this.gettingYourData = true;
+        this.fetchRipoBtnIsDisabled = true;
         axios.get('/getstaredripo').then(response => {
           console.log(response.data);
           this.staredRipos = response.data;
