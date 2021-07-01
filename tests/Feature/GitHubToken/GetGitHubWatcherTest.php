@@ -23,12 +23,25 @@ class GetGitHubWatcherTest extends TestCase
             'git_hub_token' => Crypt::encrypt('xxxxadvweukdeuwweuwvegfewedosp32423jshhd')
         ]);
 
-        GitHub::shouldReceive('me','starring','all')
+        GitHub::shouldReceive('me->starring->all')
+            ->once()
             ->andReturn([
                 ['name' => 'laravel']
             ]);
 
         $response = $this->actingAs($user)
-            ->get('/getripowatcher');
+            ->get('/getstaredripo');
+        $this->assertEquals($response->original[0]['name'],'laravel');
+    }
+
+    public function testGetGitHubWatcherBadToken()
+    {
+        $user = factory(\App\User::class)->create([
+            'git_hub_token' => Crypt::encrypt('xxxxadvweukdeuwweuwvegfewedosp32423jshhd')
+        ]);
+
+        $response = $this->actingAs($user)
+            ->get('/getstaredripo');
+        $this->assertEquals(500,$response->getStatusCode());
     }
 }

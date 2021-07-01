@@ -1,5 +1,8 @@
 <template>
   <div>
+    <b-toast id="bad-token-toast" title="Incorrect/Expired Github Token" static no-auto-hide>
+      Enter a valid token and try again!
+    </b-toast>
     <b-table striped hover :items="staredRipos" :fields="fields"></b-table>
     <b-button
       v-if="!gottenStaredRipos"
@@ -28,7 +31,10 @@
           this.staredRipos = response.data;
           this.gettingYourData = false;
           this.gottenStaredRipos = true;
-        }).catch(error => console.log(error));
+        }).catch(error => {
+          console.log(error.response);
+          this.$bvToast.show('bad-token-toast');
+        });
       }
     }
   }
