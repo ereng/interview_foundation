@@ -41,15 +41,37 @@ import Login from './components/Login.vue';
  */
 Vue.use(VueRouter);
 
+const ifNotAuthenticated = (to, from, next) => {
+  const token = localStorage.getItem('user-token')
+
+  if (!token) {
+    next()
+    return
+  }
+    next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  const token = localStorage.getItem('user-token')
+
+  if (token) {
+    next()
+    return
+  }
+  next('/login')
+}
+
 const router = new VueRouter({
     routes: [{
         path: '/',
         name: 'home',
-        component: Home
+        component: Home,
+        beforeEnter: ifAuthenticated
     },{
         path: '/login',
         name: 'login',
-        component: Login
+        component: Login,
+        beforeEnter: ifNotAuthenticated
     }]
 });
 
