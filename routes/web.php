@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/getstaredripo', GetGitHubWatcher::class);
     Route::post('/githubtoken', PostGitHubToken::class);
     Route::get('/githubtoken', GetGitHubToken::class);
 });
