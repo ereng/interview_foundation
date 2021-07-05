@@ -12,6 +12,12 @@
     >
       {{ gettingYourData ? 'Getting your data ...' : 'Get your stared repos' }}
     </b-button>
+    <b-button
+      v-on:click="logout"
+      variant="danger"
+    >
+      Logout
+    </b-button>
   </div>
 </template>
 <script>
@@ -39,6 +45,11 @@
           this.$bvToast.show('bad-token-toast');
           setTimeout( () => this.$router.go(), 5000);
         });
+      },
+      logout () {
+        localStorage.removeItem('user-token')
+        axios.defaults.headers.common['Authorization'] = '';
+        this.$router.go();
       }
     }
   }
