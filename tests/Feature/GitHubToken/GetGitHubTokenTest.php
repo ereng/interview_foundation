@@ -18,7 +18,7 @@ class GetGitHubTokenTest extends TestCase
     public function testGetGitHubToken()
     {
         $user = factory(\App\User::class)->create([
-            'git_hub_token' => Crypt::encrypt('gcp_waHOh7fA2HXa44tDeMtSlD2atzAxaE071TVB')
+            'git_hub_token' => 'gcp_waHOh7fA2HXa44tDeMtSlD2atzAxaE071TVB'
         ]);
         $response = $this->actingAs($user)
             ->get('/githubtoken');

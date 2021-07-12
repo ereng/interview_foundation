@@ -8,6 +8,7 @@ use GrahamCampbell\GitHub\Facades\GitHub;
 use Illuminate\Support\Facades\Crypt;
 use Tests\TestCase;
 use App\Http\Controllers\GetGitHubWatcher;
+use Exception;
 
 class GetGitHubWatcherTest extends TestCase
 {
@@ -20,7 +21,7 @@ class GetGitHubWatcherTest extends TestCase
     public function testGetGitHubWatcher()
     {
         $user = factory(\App\User::class)->create([
-            'git_hub_token' => Crypt::encrypt('xxxxadvweukdeuwweuwvegfewedosp32423jshhd')
+            'git_hub_token' => 'xxxxadvweukdeuwweuwvegfewedosp32423jshhd'
         ]);
 
         GitHub::shouldReceive('me->starring->all')
@@ -37,8 +38,12 @@ class GetGitHubWatcherTest extends TestCase
     public function testGetGitHubWatcherBadToken()
     {
         $user = factory(\App\User::class)->create([
-            'git_hub_token' => Crypt::encrypt('xxxxadvweukdeuwweuwvegfewedosp32423jshhd')
+            'git_hub_token' => 'xxxxadvweukdeuwweuwvegfewedosp32423jshhd'
         ]);
+
+        GitHub::shouldReceive('me->starring->all')
+            ->once()
+            ->andThrow(new Exception());
 
         $response = $this->actingAs($user)
             ->get('/getstaredripo');
