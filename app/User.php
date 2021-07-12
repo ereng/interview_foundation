@@ -38,11 +38,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getGitHubTokenAttribute($value) {
+    public function getGitHubTokenAttribute($value)
+    {
         return is_null($value) ? null : Crypt::decryptString($value);
     }
 
-    public function setGitHubTokenAttribute($value) {
+    public function setGitHubTokenAttribute($value)
+    {
         $this->attributes['git_hub_token'] = Crypt::encryptString($value);
     }
 }
