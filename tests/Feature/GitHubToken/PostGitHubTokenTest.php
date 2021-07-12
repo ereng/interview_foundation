@@ -22,6 +22,7 @@ class PostGitHubTokenTest extends TestCase
     {
         $user = factory(\App\User::class)->create();
         $response = $this->actingAs($user)
+            ->withHeaders(['Accept' => 'application/json'])
             ->post('/githubtoken',['git_hub_token' => '']);
         $this->assertEquals(422,$response->getStatusCode());
     }
